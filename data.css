@@ -1,0 +1,810 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --gradient: linear-gradient(45deg, #00ffd5, #0ef35a, #9907b0, #686de0);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --border: 1px solid rgba(255, 255, 255, 0.1);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+body {
+    background: #ffffff;
+    min-height: 100vh;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.2rem 5%;
+    backdrop-filter: blur(12px);
+    background: var(--glass-bg);
+    border-bottom: var(--border);
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow);
+}
+
+.navbar.scrolled {
+    padding: 0.8rem 5%;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 8s linear infinite;
+    background-size: 300%;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+    font-size: 1.05rem;
+    letter-spacing: 0.3px;
+}
+
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient);
+    background-size: 300%;
+    transition: width 0.3s ease;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    right: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient);
+    background-size: 300%;
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #000000;
+    text-shadow: 0 0 8px rgb(0, 0, 0);
+}
+
+.nav-links a:hover::before,
+.nav-links a:hover::after {
+    width: 100%;
+    animation: gradient 8s linear infinite;
+}
+
+.mobile-nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    z-index: 1001;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.mobile-nav-toggle:hover {
+    background-color: rgb(255, 255, 255);
+}
+
+.mobile-nav-toggle .bar {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: white;
+    transition: all 0.4s ease;
+}
+
+.mobile-nav-toggle .bar:nth-child(1) { top: 14px; }
+.mobile-nav-toggle .bar:nth-child(2) { top: 19px; }
+.mobile-nav-toggle .bar:nth-child(3) { top: 24px; }
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 80%;
+        max-width: 400px;
+        background: linear-gradient(135deg, rgba(10, 10, 10, 0.99), rgba(20, 20, 20, 0.99));
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+    }
+
+    .nav-links::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.03));
+        pointer-events: none;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+        opacity: 0;
+        transform: translateX(20px);
+        transition: all 0.4s ease;
+    }
+
+    .nav-links.active a {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .nav-links a:nth-child(1) { transition-delay: 0.1s; }
+    .nav-links a:nth-child(2) { transition-delay: 0.2s; }
+    .nav-links a:nth-child(3) { transition-delay: 0.3s; }
+    .nav-links a:nth-child(4) { transition-delay: 0.4s; }
+    .nav-links a:nth-child(5) { transition-delay: 0.5s; }
+
+    .mobile-nav-toggle {
+        display: block;
+    }
+
+    .mobile-nav-toggle.active .bar:nth-child(1) {
+        transform: translate(-50%, 5px) rotate(45deg);
+        width: 24px;
+    }
+
+    .mobile-nav-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-nav-toggle.active .bar:nth-child(3) {
+        transform: translate(-50%, -5px) rotate(-45deg);
+        width: 24px;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(4px);
+    }
+
+    .overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+
+    .section-title {
+        font-size: 3rem;
+    }
+
+    .section-description {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+
+section {
+    min-height: 100vh;
+    padding: 120px 5% 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+section:nth-child(even) {
+    background: var(--section-bg);
+}
+
+.section-content {
+    max-width: 1400px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.section-title {
+    font-size: 8vw;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 8s linear infinite;
+    background-size: 300%;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+}
+
+.section-description {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    opacity: 0.8;
+  color: rgb(0, 0, 0);
+}
+/* Styles for the header image */
+.header-image {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    margin-top:px; /* Adjust this based on your navbar height to avoid overlap */
+}
+
+.contact-header-image {
+    width: 100%;
+    height: 100%;  /* Make the image fill the container */
+    object-fit: cover;  /* Ensures the image covers the entire container */
+    object-position: center;  /* Centers the image */
+}
+
+/* Optional: Adjusting the overlay container */
+.image-overlay {
+    position: absolute;
+    top: 50px; /* Adjust based on your content */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    background-image: url('Testt.jpg'); /* Replace with your image */
+    background-size: cover; /* Ensures the image covers the area */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    color: white;
+    padding: 20px;
+    padding-left: 40px;
+}
+
+
+/* Adjusting the button and text */
+.header-text {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.subheader-text {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.message-us-btn {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 25px;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.message-us-btn:hover {
+    background-color: #00ffea;
+    transform: translateY(-3px);
+}
+
+.message-us-btn:active {
+    transform: translateY(1px);
+}
+/* Base Styles */
+body {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Section Styles */
+.service-info {
+    padding: 120px 5% 80px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row; /* Change from column to row for left-right alignment */
+    justify-content: center;
+    gap: 2rem; /* Space between title and card */
+    align-items: center;
+}
+
+.section-content {
+    max-width: 1400px;
+    width: 100%;
+    display: flex; /* Use flex to align children horizontally */
+    justify-content: space-between; /* Push the title to the left and card to the right */
+    text-align: left; /* Keep the text left-aligned for the title */
+    position: relative;
+    z-index: 1;
+}
+
+/* Section Title */
+.section-title {
+    font-size: 4rem;
+    font-weight: 900;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 8s linear infinite;
+    background-size: 300%;
+    margin-bottom: 2rem;
+    text-align: left; /* Align the title to the left */
+}
+
+/* Section Description */
+.section-description {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    opacity: 0.8;
+    margin-bottom: 3rem;
+}
+
+/* Cards Container */
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    right: 30px;
+}
+
+/* Card Styles */
+.card {
+    background: var(--section-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 50px rgba(31, 38, 135, 0.4);
+}
+
+.card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.card-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.8;
+}
+
+/* Card Image Hover Effect */
+.card:hover .card-img {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .section-description {
+        font-size: 1rem;
+    }
+
+    .service-info {
+        flex-direction: column; /* Stack the title and card vertically on smaller screens */
+        text-align: center; /* Center align text on mobile */
+    }
+
+    .cards-container {
+        grid-template-columns: 1fr; /* Stack cards in a single column on smaller screens */
+    }
+}
+
+    /* Container for the video and description (using flexbox) */
+    .video-container {
+        display: flex;  /* Use flexbox for side-by-side layout */
+        align-items: center;  /* Vertically center the items */
+        justify-content: center;  /* Center the items horizontally */
+        gap: 20px;  /* Space between video and text */
+        max-width: 1000px;  /* Optional: Limit the max width */
+        margin: 0 auto;  /* Center the container */
+    }
+    
+    .video-section {
+        padding: 30px;
+        background: #f4f4f4;
+        text-align: center;
+    }
+
+    /* Container for the video */
+    .video-section {
+        padding: 30px;
+        background: #000000;
+        text-align: center;
+    }
+    
+    /* Container for the video and text (using flexbox for layout) */
+    .video-container {
+        display: flex;
+        align-items: center; /* Vertically center the items */
+        justify-content: center; /* Center the items horizontally */
+        gap: 30px; /* Space between video and text */
+        max-width: 1200px;  /* Optional: Limit the max width */
+        margin: 0 auto;  /* Center the container */
+    }
+    
+    /* Video styling */
+    .video-wrapper {
+        flex: 1; /* Video container takes up available space */
+        max-width: 60%; /* Make the video take up more space (60% of the container) */
+        overflow: hidden;
+    }
+    
+    .video {
+        width: 100%;  /* Ensure the video takes up the full width of the container */
+        height: auto;  /* Maintain aspect ratio */
+        display: block;  /* Remove any space below the video */
+        border: none;  /* No border around the video */
+        border-radius: 8px;  /* Optional: Add rounded corners */
+    }
+    
+    /* Styling for the description text */
+    .video-description {
+        flex: 1;  /* Text container takes up available space */
+        max-width: 40%;  /* Limit the width of the text container */
+        padding: 20px;  /* Add padding inside the text box */
+        background-color: #ffffff;  /* White background for text box */
+        border-radius: 8px;  /* Rounded corners for the text box */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow to text box */
+        text-align: left; /* Align text to the left */
+    }
+    
+    /* Title styling */
+    .video-title {
+        font-size: 24px;
+        color: #000000;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    
+    /* Description text styling */
+    .video-text {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #555;
+        margin-top: 10px;
+    }
+    
+    /* Optional: Add hover effects to the video container */
+    .video-wrapper:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transform: scale(1.02);
+        transition: all 0.3s ease;
+    }
+    
+.service-info{
+    background-color: #000000;
+}
+/* Content inside the section */
+.section-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    
+}
+
+/* Flex container for aligning image and text */
+.service-details {
+    display: flex;
+    align-items: center; /* Vertically center the items */
+    justify-content: space-between; /* Space between image and text */
+    gap: 30px; /* Space between the image and text */
+}
+
+/* Styling for the image container */
+.image-container {
+    flex: 1; /* Ensures the image takes up available space */
+    max-width: 60%; /* Ensure the image doesn't take up more than half the space */
+}
+
+.service-image {
+    width: 100%; /* Make the image responsive to the container's size */
+    height: auto;
+    border-radius: 8px; /* Optional: Add rounded corners to the image */
+}
+
+/* Styling for the text container */
+.text-container {
+    flex: 2; /* Text container takes up more space compared to the image */
+    max-width: 50%; /* Ensure the text doesn't take up more than half the space */
+}
+
+/* Title styling */
+.text-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+/* Description styling */
+.text-description {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #faf1f1;
+}
+/* Footer styling */
+/* General styling for the footer */
+.footer {
+    position: fixed;
+    bottom: -100px;  /* Initially hidden below the viewport */
+    left: 0;
+    width: 100%;
+    background-color: #fffefe;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 20px;
+    transition: bottom 0.3s ease;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;  /* Center the content horizontally */
+    gap: 30px;  /* Space between items */
+}
+
+.footer-content p {
+    margin: 0;
+    font-size: 14px;
+    color: rgb(0, 0, 0);
+}
+
+.footer-content a {
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.footer-content a:hover {
+    text-decoration: underline;  /* Underline links on hover */
+}
+
+/* Make footer visible when scrolled to the bottom */
+.footer.show {
+    bottom: 0;  /* Bring the footer into view */
+}
+ /* Body settings */
+
+  
+/* Container settings */
+/* Container for the flowchart and text */
+/* Container for the flowchart and text */
+/* Container for the flowchart and text */
+.section-content {
+    display: flex;
+    justify-content: space-between; /* Spread the content to the left and right */
+    align-items: center; /* Vertically center the items */
+    padding: 20px; /* Optional padding around the section */
+  }
+  
+  /* Container settings for a smaller flowchart */
+  .flowchart-container {
+    position: relative;
+    width: 300px;  /* Adjust the width of the flowchart */
+    height: 400px;  /* Adjust the height of the flowchart */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 50px; /* Moves the flowchart a bit to the left */
+  }
+  
+  /* Image Node Style */
+  .image-node {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .image-node img {
+    width: 130px;  /* Smaller square size */
+    height: 130px; /* Smaller square size */
+    object-fit: cover; /* Ensures the image covers the square area */
+    border-radius: 0; /* No border radius */
+  }
+  
+  /* Box styles for a smaller flowchart */
+/* Box styles */
+.box {
+    width: 200px;  /* Smaller width */
+    height: 200px;  /* Smaller height */
+    background-color: rgb(253, 253, 253); /* Initial background color */
+    color: white; /* Initial text color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 14px;  /* Adjust font size */
+    font-weight: bold;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease, background-color 0.3s ease;
+    animation: changeColor 3s infinite alternate; /* Add animation */
+}
+
+/* Animation for changing text and background color */
+@keyframes changeColor {
+    25% {
+        
+        color: rgb(0, 0, 0);  /* Initial text color */
+    }
+    50% {
+        
+        color: rgb(248, 248, 248); /* Midway text color */
+    }
+    75% {
+        
+        color: rgb(0, 0, 0); /* Final text color */
+    }
+    100% {
+        
+        color: rgb(0, 0, 0); /* Final text color */
+    }
+}
+
+.box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+  .box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Box positioning for a smaller flowchart */
+  .left-box {
+    position: absolute;
+    left: -50%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .right-box {
+    position: absolute;
+    right: -50%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .top-box {
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .bottom-box {
+    position: absolute;
+    bottom: -30%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* Text container for the right side */
+  .text-container {
+    width: 50%; /* Adjust the width to take up the desired space on the right */
+    padding-left: 20px; /* Space between the flowchart and text */
+  }
+  
+  /* Text section styles */
+  .text-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .text-description {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-top: 10px;
+  }
+  .Video-Tilte {
+    font-size: 4rem;
+    font-weight: 900;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 8s linear infinite;
+    background-size: 300%;
+    margin-bottom: 2rem;
+    right:50%;
+  }

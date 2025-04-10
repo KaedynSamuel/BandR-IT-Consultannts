@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contact - BandR IT Consultants</title>
+    <link rel="stylesheet" href="conatcs.css"> <!-- Link to the main CSS file -->
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">BandR IT Consultants</div>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <ul class="nav-links">
+                <li><a href="Index.html">Home</a></li>
+                <li><a href="About1.html">About</a></li>
+                <li><a href="Sevrices.html">Services</a></li>
+                <li><a href="Contacts.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="overlay"></div>
+
+    <section class="header-image">
+        <div class="image-overlay">
+            <h1 class="header-text">Get In Touch With Us</h1>
+            <p class="subheader-text">We'd love to hear from you!</p>
+            <!-- Message Us Button -->
+            <a href="#contact" class="message-us-btn">Message Us</a>
+        </div>
+        
+    </section>
+    
+    <div class="video-background">
+        <video autoplay muted loop>
+            <source src="Help.mp4" type="video/mp4">
+            <!-- You can add more source tags for different video formats -->
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <section id="contact">
+        <div class="section-content">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-description">Feel free to reach out to us by filling out the form below. We look forward to hearing from you!</p>
+            <div class="contact-wrapper">
+                <!-- Left Side - Image -->
+                <div class="contact-image">
+                    <img src="talk.jpg" alt="Contact Us" loop autoplay muted></video>
+                </div>
+    
+                <!-- Right Side - Contact Form -->
+                <div class="contact-form">
+                    <!-- Name and Last Name in a row -->
+                    <div class="form-row">
+                        <div class="input-box">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" placeholder="Enter your first name" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" placeholder="Enter your last name" required>
+                        </div>
+                    </div>
+    
+                    <!-- Email and Phone Number in a row -->
+                    <div class="form-row">
+                        <div class="input-box">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="input-box">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                        </div>
+                    </div>
+    
+                    <!-- Dropdown for "What Help" -->
+                    <div class="form-row">
+                        <div class="input-box">
+                            <label for="help">What Help Do You Need?</label>
+                            <select id="help" required>
+                                <option value="">Select an option</option>
+                                <option value="IT Support">IT Support</option>
+                                <option value="Consultation">Consultation</option>
+                                <option value="Web Development">Web Development</option>
+                                <option value="Software Development">Software Development</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <!-- Message and Submit Button -->
+                    <div class="form-row">
+                        <label for="message">Your Message</label>
+                        <div class="input-box">
+                            <textarea id="message" rows="6" placeholder="Enter your message" required></textarea>
+                        </div>
+                    </div>
+    
+                    <button type="submit">Send Message</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="slider">
+        <img src="test3.jpg">
+        <img src="test5.jpg">
+        <img src="Testt.jpg">
+        <img src="SUP.jpg">
+        <img src="test3.jpg">
+        </div>
+
+
+        <footer class="footer" id="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 <a href="#about">BandR IT Consultants</a>. All rights reserved.</p>
+                <p><a href="#about">Terms and Conditions</a></p>
+                <p><a href="#services">Cookie Policy</a></p>
+                <p><a href="#contact">Copyright Policy</a></p>
+                <p><a href="#privacy-policy">Privacy Policy</a></p>
+            </div>
+        </footer>
+    
+        <!-- JavaScript File -->
+        <script src="data.js"></script>
+    </section>
+
+</body>
+</html>

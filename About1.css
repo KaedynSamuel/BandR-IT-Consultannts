@@ -1,0 +1,623 @@
+/* Global reset and font settings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+  --gradient: linear-gradient(45deg, #00ffd5, #0ef35a, #9907b0, #686de0);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --border: 1px solid rgba(255, 255, 255, 0.1);
+  --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+body {
+  background: #ffffff;
+  min-height: 100vh;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.2rem 5%;
+  backdrop-filter: blur(12px);
+  background: var(--glass-bg);
+  border-bottom: var(--border);
+  z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow);
+}
+
+.navbar.scrolled {
+  padding: 0.8rem 5%;
+  background: rgba(10, 10, 10, 0.95);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient 8s linear infinite;
+  background-size: 300%;
+  letter-spacing: -0.5px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: rgb(4, 4, 4);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  padding: 0.5rem 0;
+  transition: all 0.3s ease;
+  font-size: 1.05rem;
+  letter-spacing: 0.3px;
+}
+
+.nav-links a::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient);
+  background-size: 300%;
+  transition: width 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gradient);
+  background-size: 300%;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #000000;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.nav-links a:hover::before,
+.nav-links a:hover::after {
+  width: 100%;
+  animation: gradient 8s linear infinite;
+}
+
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  z-index: 1001;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.mobile-nav-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav-toggle .bar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: white;
+  transition: all 0.4s ease;
+}
+
+.mobile-nav-toggle .bar:nth-child(1) { top: 14px; }
+.mobile-nav-toggle .bar:nth-child(2) { top: 19px; }
+.mobile-nav-toggle .bar:nth-child(3) { top: 24px; }
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      height: 100vh;
+      width: 80%;
+      max-width: 400px;
+      background: linear-gradient(135deg, rgba(255, 252, 252, 0.99), rgba(20, 20, 20, 0.99));
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+  }
+
+  .nav-links::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.03));
+      pointer-events: none;
+  }
+
+  .nav-links.active {
+      right: 0;
+  }
+
+  .nav-links a {
+      font-size: 1.2rem;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: all 0.4s ease;
+  }
+
+  .nav-links.active a {
+      opacity: 1;
+      transform: translateX(0);
+  }
+
+  .nav-links a:nth-child(1) { transition-delay: 0.1s; }
+  .nav-links a:nth-child(2) { transition-delay: 0.2s; }
+  .nav-links a:nth-child(3) { transition-delay: 0.3s; }
+  .nav-links a:nth-child(4) { transition-delay: 0.4s; }
+  .nav-links a:nth-child(5) { transition-delay: 0.5s; }
+
+  .mobile-nav-toggle {
+      display: block;
+  }
+
+  .mobile-nav-toggle.active .bar:nth-child(1) {
+      transform: translate(-50%, 5px) rotate(45deg);
+      width: 24px;
+  }
+
+  .mobile-nav-toggle.active .bar:nth-child(2) {
+      opacity: 0;
+  }
+
+  .mobile-nav-toggle.active .bar:nth-child(3) {
+      transform: translate(-50%, -5px) rotate(-45deg);
+      width: 24px;
+  }
+
+  .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(4px);
+  }
+
+  .overlay.active {
+      opacity: 1;
+      visibility: visible;
+  }
+}
+
+/* Full-width image styles */
+.full-width-image {
+  width: 100%;
+  height: 15cm; /* Set the container height */
+  overflow: hidden;
+  position: relative;
+  margin-top: 80px; /* Add top margin to push it below the navbar */
+}
+
+.full-width-image img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: -35%;
+  left: 0;
+  object-fit: cover;
+}
+
+/* Text overlay on the image */
+.image-text {
+  position: absolute;
+  top: 50%;
+  left: 10%; /* Adjusted to move text to the left */
+  transform: translateY(-50%); /* Keep it vertically centered */
+  color: rgb(0, 0, 0);
+  text-align: left; /* Align the text to the left */
+  z-index: 1;
+}
+
+.image-text h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.image-text p {
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+.content {
+  background-color: #ffffff; /* Dark background for contrast */
+  color: rgb(0, 0, 0);
+  padding: 40px 5%;
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-top: 30px;
+}
+
+.content p {
+  max-width: 900px;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+.section-heading {
+  font-size: 3rem;
+  font-weight: 700;
+  background: var(--gradient); /* Use the same gradient */
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient 8s linear infinite; /* Add gradient animation */
+  background-size: 300%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Gradient animation for the text */
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* Clock Layout Section */
+.clock-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;  /* Ensures the section takes up full viewport height */
+  margin-top: 80px; /* Adds more space from the navbar */
+  padding: 50px 0;
+  position: relative;
+}
+
+/* Container for the cards */
+.card-container {
+  position: relative;
+  width: 600px; /* Increased width for bigger cards */
+  height: 600px; /* Increased height for bigger cards */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 450px;
+  margin-top: 150px; /* Move the card container further down */
+}
+
+/* Central Card */
+/* Central Card */
+.card-center {
+  position: absolute;
+  width: 300px; /* Increased size */
+  height: 300px; /* Increased size */
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  overflow: hidden;
+  color: white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+}
+
+.card-center img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: blur(4px);
+  z-index: 0;
+}
+
+.card-center .card-content {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  text-align: center;
+}
+
+.card-center h3 {
+  font-size: 2rem; /* Increased font size */
+  margin-bottom: 10px;
+}
+
+.card-center p {
+  font-size: 1.2rem; /* Increased font size */
+  opacity: 0.8;
+}
+
+/* Surrounding Cards */
+.card {
+  position: absolute;
+  width: 250px; /* Increased size */
+  height: 250px; /* Increased size */
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  overflow: hidden;
+  color: white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  opacity: 0.9;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: blur(2px);
+  z-index: 0;
+}
+
+.card .card-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Positioning the surrounding cards like a clock (circle) */
+.card-1 { transform: rotate(0deg) translateY(-300px) rotate(-0deg); }
+.card-2 { transform: rotate(72deg) translateY(-300px) rotate(-72deg); }
+.card-3 { transform: rotate(144deg) translateY(-300px) rotate(-144deg); }
+.card-4 { transform: rotate(216deg) translateY(-300px) rotate(-216deg); }
+.card-5 { transform: rotate(288deg) translateY(-300px) rotate(-288deg); }
+
+/* Content styling for each card */
+.card h3 {
+  font-size: 1.5rem; /* Increased font size */
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 1.2rem; /* Increased font size */
+  opacity: 0.8;
+}
+
+
+/* Hover effect for scaling image and removing blur */
+.card:hover img {
+  transform: scale(1.1); /* Slightly scale the image */
+  filter: blur(0); /* Remove the blur */
+  transition: transform 0.3s ease, filter 0.3s ease; /* Smooth transition for scaling and blur removal */
+}
+
+/* Optional: Apply blur effect to the background of surrounding cards */
+.card img {
+  filter: blur(4px);
+}
+/* Section Heading with Gradient Animation */
+/* Section Heading with Gradient Animation */
+.section-heading {
+    font-size: 3rem;
+    font-weight: 800;
+    background: var(--gradient); /* Using the gradient defined in your CSS */
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 8s linear infinite;
+    background-size: 300%;
+    text-align: center;
+    margin-bottom: 50px; /* Adds space below the heading */
+    margin-top: 100px; /* Moves the heading down by 100px */
+}
+
+/* Gradient animation for text */
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+.mission-image {
+  width: 100%;
+  height: 12cm; /* Set the container height */
+  overflow: hidden;
+  position: relative;
+  margin-top: 150px; /* Increase the margin-top to push the section further down */
+}
+
+.mission-image img {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0; /* Reset the top position to make sure the image is more centered within the container */
+  left: 0;
+  object-fit: cover;
+}
+
+/* Text overlay on the image */
+.image-text {
+  position: absolute;
+  top: 50%; /* Move the text to the center of the image */
+  left: 10%; /* Adjusted to move text to the left */
+  transform: translateY(-50%); /* Keep it vertically centered */
+  color: white;
+  text-align: left; /* Align the text to the left */
+  z-index: 1;
+}
+
+.image-text h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.image-text p {
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+/* Services Cards Container */
+/* Section for video cards */
+.video-cards-section {
+  padding: 40px 5%;
+  background-color: #f8f8f8;  /* Background color for contrast */
+}
+
+/* Title for the video cards section */
+.video-cards-section .section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--gradient);
+}
+
+/* Services Cards Container */
+.services-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Each individual card */
+.video-card {
+  width: 23%;  /* Adjust the width for the number of cards per row */
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 15px rgba(249, 249, 249, 0.6);
+}
+
+/* Video Container */
+.video-container {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+/* Card Text */
+.video-card-text {
+  font-size: 1rem;
+  color: #333;
+  margin-top: 10px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* Hover Effect for Cards */
+.video-card:hover {
+  transform: translateY(-5px);  /* Slight lift effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  animation: glow 2s linear infinite;
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .video-card {
+    width: 48%;  /* Two cards per row on small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .video-card {
+    width: 100%;  /* Full-width cards on very small screens */
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px rgba(162, 0, 255, 0.484), 0 0 20px rgba(212, 0, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(136, 0, 255, 0.534), 0 0 30px rgba(153, 0, 255, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(140, 0, 255, 0.41), 0 0 20px rgba(140, 0, 255, 0.4);
+  }
+}
+.footer {
+  position: fixed;
+  bottom: -100px;  /* Initially hidden below the viewport */
+  left: 0;
+  width: 100%;
+  background-color: #fffefe;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  padding: 20px;
+  transition: bottom 0.3s ease;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;  /* Center the content horizontally */
+  gap: 30px;  /* Space between items */
+}
+
+.footer-content p {
+  margin: 0;
+  font-size: 14px;
+  color: rgb(0, 0, 0);
+}
+
+.footer-content a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.footer-content a:hover {
+  text-decoration: underline;  /* Underline links on hover */
+}
+
+/* Make footer visible when scrolled to the bottom */
+.footer.show {
+  bottom: 0;  /* Bring the footer into view */
+}

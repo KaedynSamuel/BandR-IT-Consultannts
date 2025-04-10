@@ -1,0 +1,427 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar styles (same as homepage navbar) */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.2rem 5%;
+    backdrop-filter: blur(12px);
+    background: rgb(255, 254, 254);
+    border-bottom: 1px solid rgb(255, 255, 255);
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.navbar.scrolled {
+    padding: 0.8rem 5%;
+    background: rgba(247, 247, 247, 0.95);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #00ffd5, #0ef35a, #9907b0, #686de0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 8s linear infinite;
+    background-size: 300%;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: all 0.3s ease;
+    font-size: 1.05rem;
+    letter-spacing: 0.3px;
+}
+
+/* Underline effect on hover */
+.nav-links a::before,
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(45deg, #15f1a4, #8607cf3e, #640cfc, #03ffe2);
+    background-size: 300%;
+    transition: width 0.3s ease;
+}
+
+/* Bottom underline */
+.nav-links a::before {
+    top: -4px; /* Top position for underline */
+    left: 0;
+}
+
+/* Top underline */
+.nav-links a::after {
+    bottom: -4px; /* Bottom position for underline */
+    right: 0;
+}
+
+/* Hover effect to animate both top and bottom underlines */
+.nav-links a:hover {
+    color: #000000;
+    text-shadow: 0 0 8px rgb(0, 0, 0);
+}
+
+.nav-links a:hover::before,
+.nav-links a:hover::after {
+    width: 100%; /* Expand both top and bottom underline */
+    animation: gradient 8s linear infinite;
+}
+
+/* Optional: Add a smooth scaling effect to text */
+.nav-links a:hover {
+    transform: scale(1.1); /* Slight scale effect on hover */
+}
+
+
+/* Gradient animation for logo and text */
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Services Section */
+#services {
+    min-height: 100vh;
+    padding: 120px 5% 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+.section-title {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    background: linear-gradient(45deg, #5603a3, #02fff7, #22f272, #770297);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 8s linear infinite;
+    background-size: 300%;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+}
+
+.section-description {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    opacity: 0.8;
+    color: rgb(0, 0, 0);
+    margin-bottom: 2rem;
+}
+
+/* Services Cards */
+.services-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    width: 100%;
+}
+
+/* Each Service Card */
+.service-card {
+    display: flex;
+    flex-direction: column;
+    background: rgb(0, 0, 0);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37); /* Initial shadow */
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%; /* Ensure the card fills its container */
+}
+
+/* Hover Effect for Pop-Up */
+.service-card:hover {
+    transform: translateY(-10px); /* Moves the card up */
+    box-shadow: 0 12px 50px rgba(31, 38, 135, 0.5); /* Bigger shadow for pop effect */
+}
+
+/* Constant Spinning Color Ring Around the Card */
+.service-card:before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 12px;
+    border: 2px solid transparent; /* Invisible initial border */
+    background: linear-gradient(45deg, #15f1a4, #8607cf3e, #640cfc, #03ffe2); /* Gradient color ring */
+    background-size: 400%;
+    z-index: -1; /* Place behind the card */
+    animation: spin-ring 5s linear infinite; /* Animate the ring */
+}
+
+/* Keyframes for continuous spinning effect */
+@keyframes spin-ring {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Service Card Title */
+.service-title {
+    font-size: 1.8rem;
+    color: var(--gradient);
+    margin-bottom: 1rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 8s linear infinite;
+    background-size: 300%;
+    line-height: 1.2;
+}
+
+/* Service Card Description */
+.service-description {
+    font-size: 1rem;
+    color: white;
+    opacity: 0.8;
+    margin-bottom: 1.rem;
+}
+
+/* Service Image */
+.service-image {
+    margin-bottom: 1.8rem;
+}
+
+.service-image img {
+    width: 100%;
+    height: auto;
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(31, 38, 135, 0.37);
+}
+.card-service-title {
+    font-size: 1.9rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-align: center;
+}
+/* Button */
+.btn {
+    display: inline-block;
+    padding: 0.7rem 2rem;
+    background: var(--gradient);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    margin-top: 20px; /* Adjust this value to move the button further down */
+}
+
+
+.btn:hover {
+    background: #ff3366;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+}
+
+/* Portfolio Section */
+.portfolio-section {
+    padding: 40px 20px;
+    background-color: #0e0e0e;
+    text-align: center;
+}
+
+/* Portfolio Cards Container */
+.portfolio-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap; /* Allows wrapping if screen size is small */
+}
+
+/* Each Portfolio Card */
+.portfolio-card {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 30%; /* Adjusts to be side by side */
+    min-width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex; /* Use flex to align video and text side by side */
+    flex-direction: row; /* This makes the video and text sit side by side */
+    padding: 20px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover Effect for Portfolio Card */
+.portfolio-card:hover {
+    transform: translateY(-10px); /* Moves the card up */
+    box-shadow: 0 12px 50px rgba(52, 4, 87, 0.5); /* Bigger shadow for pop effect */
+}
+
+/* Portfolio Video */
+.portfolio-image {
+    flex: 1;
+    margin-right: 15px; /* Adds space between the video and text */
+}
+
+.portfolio-image video {
+    width: 100%; /* Make sure the video takes up full width of its container */
+    height: auto;
+    object-fit: cover;
+}
+
+/* Portfolio Text */
+.portfolio-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* Stack the text vertically */
+    justify-content: center;
+}
+
+.portfolio-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.portfolio-description {
+    font-size: 1rem;
+    color: #555;
+}
+/* Slider Styles */
+.image-slider {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Set a fixed height for the slider */
+    overflow: hidden;
+    margin-bottom: 40px; /* Add margin to separate from next sections */
+}
+
+.slider-container {
+    display: flex;
+    transition: transform 0.5s ease;
+    height: 100%;
+    width: 400%; /* Since we have 4 images */
+}
+
+.slider-image {
+    width: 25%; /* Each image takes up 25% of the width */
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+}
+
+.slider-image:hover {
+    transform: scale(1.1); /* Zoom effect on hover */
+}
+/* Add this style for positioning logos inside the landscape image */
+.landscape-image {
+    position: relative;
+    width: 100%;
+    height: auto;
+}
+
+.landscape-img {
+    width: 40%;
+    height: auto;
+}
+
+.partner-logos {
+    position: absolute;
+    top: 20%; /* Adjust this value based on where you want the logos */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px; /* Adjust the gap between logos */
+}
+
+.partner-logos img {
+    width: 100px; /* Adjust the size of each logo */
+    height: auto;
+}
+.footer {
+    position: fixed;
+    bottom: -100px;  /* Initially hidden below the viewport */
+    left: 0;
+    width: 100%;
+    background-color: #fffefe;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 20px;
+    transition: bottom 0.3s ease;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;  /* Center the content horizontally */
+    gap: 30px;  /* Space between items */
+}
+
+.footer-content p {
+    margin: 0;
+    font-size: 14px;
+    color: rgb(0, 0, 0);
+}
+
+.footer-content a {
+    color: #000000;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.footer-content a:hover {
+    text-decoration: underline;  /* Underline links on hover */
+}
+
+/* Make footer visible when scrolled to the bottom */
+.footer.show {
+    bottom: 0;  /* Bring the footer into view */
+}
